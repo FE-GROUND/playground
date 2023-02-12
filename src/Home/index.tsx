@@ -1,3 +1,9 @@
+import InputComponent from '@/common/Input';
+
 export const HomeScreen = () => {
-  return null;
+	return (
+		<div>
+			<InputComponent name={'headless-input'} />
+		</div>
+	);
 };
