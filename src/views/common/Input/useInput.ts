@@ -16,7 +16,8 @@ import {
 export interface InputPropsType {
 	value: string;
 	focusFlag: boolean;
-	setFocusFlag: Dispatch<SetStateAction<boolean>>;
+	onFocus: () => void;
+	onBlur: () => void;
 	onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -32,7 +33,8 @@ export const useInput = (): InputPropsType => {
 		return {
 			value: value,
 			focusFlag: focusFlag,
-			setFocusFlag: setFocusFlag,
+			onFocus: () => setFocusFlag(true),
+			onBlur: () => setFocusFlag(false),
 			onChange: handleChange,
 		};
 	}, [focusFlag, handleChange, value]);

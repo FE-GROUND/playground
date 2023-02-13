@@ -14,7 +14,7 @@ const InputComponent: FC<InputComponentProps> = ({
 	className,
 	inputProps,
 }) => {
-	const {onChange, setFocusFlag, value} = inputProps;
+	const {onChange, onBlur, onFocus, value} = inputProps;
 
 	return (
 		<div className={className}>
@@ -24,8 +24,8 @@ const InputComponent: FC<InputComponentProps> = ({
 					name={name}
 					value={value}
 					onChange={onChange}
-					onFocus={() => setFocusFlag(true)}
-					onBlur={() => setFocusFlag(false)}
+					onFocus={onFocus}
+					onBlur={onBlur}
 				/>
 			</label>
 		</div>
