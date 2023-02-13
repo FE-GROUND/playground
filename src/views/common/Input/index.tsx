@@ -1,20 +1,20 @@
 import {FC, HTMLInputTypeAttribute} from 'react';
-import {useInput} from './useInput';
+import {InputPropsType} from './useInput';
 
 interface InputComponentProps {
 	type?: HTMLInputTypeAttribute;
 	name: string;
 	className?: string;
-	maxLength?: number;
+	inputProps: InputPropsType;
 }
 
 const InputComponent: FC<InputComponentProps> = ({
 	type = 'text',
 	name,
 	className,
-	maxLength,
+	inputProps,
 }) => {
-	const {value, setFocusFlag, onChange} = useInput();
+	const {onChange, setFocusFlag, value} = inputProps;
 
 	return (
 		<div className={className}>
@@ -23,8 +23,6 @@ const InputComponent: FC<InputComponentProps> = ({
 					type={type}
 					name={name}
 					value={value}
-					maxLength={maxLength}
-					pattern={'^[0-9]+$'}
 					onChange={onChange}
 					onFocus={() => setFocusFlag(true)}
 					onBlur={() => setFocusFlag(false)}

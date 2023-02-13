@@ -1,12 +1,41 @@
-import {ChangeEvent, useCallback, useState} from 'react';
+import {
+	ChangeEvent,
+	Dispatch,
+	SetStateAction,
+	useCallback,
+	useMemo,
+	useState,
+} from 'react';
 
-export const useInput = () => {
-	const [value, setValue] = useState<string>();
-	const [focusFlag, setFocusFlag] = useState<boolean>();
+/**
+ * 공통으로 사용되는 Input 컴포넌트의 기본 프롭스 전달
+ *
+ * @returns inputProps: {value, focusFlag, setFocusFlag, onChange}
+ */
+
+export interface InputPropsType {
+	value: string;
+	focusFlag: boolean;
+	setFocusFlag: Dispatch<SetStateAction<boolean>>;
+	onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+}
+
+export const useInput = (): InputPropsType => {
+	const [value, setValue] = useState<string>('');
+	const [focusFlag, setFocusFlag] = useState<boolean>(false);
 
 	const handleChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
 		setValue(e.target.value);
 	}, []);
 
-	return {value, focusFlag, setFocusFlag, onChange: handleChange};
+	const inputProps: InputPropsType = useMemo(() => {
+		return {
+			value: value,
+			focusFlag: focusFlag,
+			setFocusFlag: setFocusFlag,
+			onChange: handleChange,
+		};
+	}, [focusFlag, handleChange, value]);
+
+	return inputProps;
 };
