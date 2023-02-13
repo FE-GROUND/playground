@@ -1,4 +1,4 @@
-import InputComponent from '@/common/Input';
+import InputComponent from '@/views/common/Input';
 
 export const HomeScreen = () => {
 	return (

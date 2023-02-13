@@ -24,6 +24,7 @@ const InputComponent: FC<InputComponentProps> = ({
 					name={name}
 					value={value}
 					maxLength={maxLength}
+					pattern={'^[0-9]+$'}
 					onChange={onChange}
 					onFocus={() => setFocusFlag(true)}
 					onBlur={() => setFocusFlag(false)}
