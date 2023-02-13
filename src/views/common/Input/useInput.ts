@@ -10,7 +10,7 @@ import {
 /**
  * 공통으로 사용되는 Input 컴포넌트의 기본 프롭스 전달
  *
- * @returns inputProps: {value, focusFlag, setFocusFlag, onChange}
+ * @returns {value, focusFlag, onFocus, onBlur, onChange}
  */
 
 export interface InputPropsType {
