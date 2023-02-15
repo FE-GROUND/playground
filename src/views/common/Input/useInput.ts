@@ -1,11 +1,4 @@
-import {
-	ChangeEvent,
-	Dispatch,
-	SetStateAction,
-	useCallback,
-	useMemo,
-	useState,
-} from 'react';
+import {ChangeEvent, useCallback, useMemo, useState} from 'react';
 
 /**
  * 공통으로 사용되는 Input 컴포넌트의 기본 프롭스 전달

@@ -1,12 +1,5 @@
-import InputComponent from '@/views/common/Input';
-import {useInput} from '../common/Input/useInput';
+import {LoginScreen} from './Login';
 
 export const HomeScreen = () => {
-	const testInput = useInput();
-
-	return (
-		<div>
-			<InputComponent name={'headless-input'} inputProps={testInput} />
-		</div>
-	);
+	return <LoginScreen />;
 };

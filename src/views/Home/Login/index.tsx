@@ -1,3 +1,5 @@
-export const index = () => {
-  return null;
+import {FC} from 'react';
+
+export const LoginScreen: FC = () => {
+	return <></>;
 };
