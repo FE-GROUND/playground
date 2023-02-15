@@ -1,17 +1,15 @@
 import {FC} from 'react';
-import InputComponent from '@/views/common/Input';
-import {InputPropsType} from '@/views/common/Input/useInput';
+import InputComponent, {InputComponentProps} from '@/views/common/Input';
 
 type LoginInputType = 'email' | 'password';
-interface LoginInputProps {
-  inputProps: InputPropsType;
+interface LoginInputProps extends InputComponentProps {
   type: LoginInputType;
 }
 
-const LoginInput: FC<LoginInputProps> = ({type, inputProps}) => {
+const LoginInput: FC<LoginInputProps> = ({type, inputProps, placeholder}) => {
   return (
     <>
-      <InputComponent type={type} name={`login-${type}`} inputProps={inputProps} />
+      <InputComponent type={type} name={`login-${type}`} placeholder={placeholder} inputProps={inputProps} />
     </>
   );
 };

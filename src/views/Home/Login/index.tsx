@@ -8,8 +8,20 @@ export const LoginScreen: FC = () => {
 
   return (
     <div>
-      <LoginInput inputProps={emailInputProps} type={'email'} />
-      <LoginInput inputProps={passwordInputProps} type={'password'} />
+      <LoginInput
+        inputProps={emailInputProps}
+        type={'email'}
+        name={'login-email-input'}
+        placeholder={'abcd@email.efg'}
+      />
+      <LoginInput
+        inputProps={passwordInputProps}
+        type={'password'}
+        name={'login-password-input'}
+        placeholder={'비밀번호를 입력해주세요'}
+      />
+      <button>로그인 버튼 추가</button>
+      <button>회원가입 버튼 추가</button>
     </div>
   );
 };
