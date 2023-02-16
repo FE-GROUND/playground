@@ -4,7 +4,7 @@
 // }
 
 export const HomeScreen = () => {
-  // const {writeStore, readStore, updateStore, removeField, removeDocs} = useFireStore();
+  // const {writeStore, readStore, queryStore, updateStore, removeField, removeDocs} = useFireStore();
 
   // write 테스트
   // const writeTest = useCallback(async () => {
@@ -20,6 +20,19 @@ export const HomeScreen = () => {
   //
   //   console.log(data);
   // }, [readStore]);
+
+  // query 테스트
+  // const queryTest = useCallback(async() => {
+  //   const queryOption = {
+  //     path: 'name',
+  //     operator: '==',
+  //     value: '상규'
+  //   }
+  //
+  //   const data = await queryStore<TestProps>('user', queryOption);
+  //
+  //   console.log(data);
+  // }, [queryStore]);
 
   // update 테스트
   // const updateTest = useCallback(async() => {
