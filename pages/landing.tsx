@@ -1,4 +1,4 @@
-import { LandingScreen } from "@/Landing";
+import { LandingScreen } from "@/views/Landing";
 
 export default function LandingPage() {
   return <LandingScreen />;
