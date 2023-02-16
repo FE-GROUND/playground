@@ -8,9 +8,10 @@ export const HomeScreen = () => {
 
   // write 테스트
   // const writeTest = useCallback(async () => {
-  //     await writeStore<TestProps>('user', {
+  //     const name = '상규';
+  //     await writeStore<TestProps>('user', name,{
   //       item: 'SG',
-  //       name: '상규',
+  //       age: '29',
   //     });
   // }, [writeStore]);
 
@@ -24,9 +25,9 @@ export const HomeScreen = () => {
   // query 테스트
   // const queryTest = useCallback(async() => {
   //   const queryOption = {
-  //     path: 'name',
+  //     path: 'age',
   //     operator: '==',
-  //     value: '상규'
+  //     value: '29'
   //   }
   //
   //   const data = await queryStore<TestProps>('user', queryOption);
@@ -37,7 +38,7 @@ export const HomeScreen = () => {
   // update 테스트
   // const updateTest = useCallback(async() => {
   //   const data = await updateStore('user', '019KGrogU9T2YQmlpF4J', {
-  //     id: 'happywhn3'
+  //     age: '29'
   //   });
   //
   //   console.log(data);
@@ -45,14 +46,14 @@ export const HomeScreen = () => {
 
   // remove Field 테스트
   // const removeTest = useCallback(async() => {
-  //   const data = await removeField('user', '019KGrogU9T2YQmlpF4J', ['id']);
+  //   const data = await removeField('user', '상규', ['age']);
   //
   //   console.log(data);
   // }, [removeField]);
 
   // remove Docs 테스트
   // const removeTest = useCallback(async() => {
-  //   const data = await removeDocs('user', '019KGrogU9T2YQmlpF4J');
+  //   const data = await removeDocs('user', '상규');
   //   console.log(data);
   // }, [removeDocs]);
 

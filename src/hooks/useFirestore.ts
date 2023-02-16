@@ -1,7 +1,7 @@
-import {firebaseConfig} from "@/constants/config";
-import {FieldPath, query, UpdateData, where, WhereFilterOp} from "@firebase/firestore";
+import { firebaseConfig } from "@/constants/config";
+import { FieldPath, query, setDoc, UpdateData, where, WhereFilterOp } from "@firebase/firestore";
 import { initializeApp } from "firebase/app";
-import { addDoc, collection, deleteDoc, deleteField, doc, getDocs, getFirestore, updateDoc, FieldValue } from 'firebase/firestore';
+import { collection, deleteDoc, deleteField, doc, getDocs, getFirestore, updateDoc, FieldValue } from 'firebase/firestore';
 import { useCallback } from "react";
 
 interface FirestoreDeleteProps {
@@ -26,18 +26,19 @@ export const useFireStore = () => {
     /**
      * @description firestore에 데이터 쓰기
      * @param collectionKey: 콜렉션 키 값
+     * @param documentKey: 도큐먼트 키 값
      * @param writeData: 작성할 필드 및 값 Object
      */
-    const writeStore = useCallback(async <T extends {}>(collectionKey: string, writeData: T) => {
+    const writeStore = useCallback(async <T extends {}>(collectionKey: string, documentKey: string, writeData: T) => {
         try {
-            await addDoc(collection(db, collectionKey), writeData);
+            await setDoc(doc(db, collectionKey, documentKey), writeData);
         } catch (err) {
             throw new Error(`Firestore write Error: ${err}`);
         }
     }, [db]);
 
     /**
-     * @description firestore 데이터 읽기
+     * @description firestore 에서 해당 collection을 모두 가져올 때 사용
      * @param collectionKey: 콜렉션 키 값
      */
     const readStore = useCallback(async <T>(collectionKey: string): Promise<FirestoreReadDataType<T>[]> => {
@@ -57,7 +58,7 @@ export const useFireStore = () => {
     }, [db]);
 
     /**
-     * @description firestore 데이터 조건부 읽기
+     * @description firestore 해당 collection에서 조건부로 읽을 때 사용
      * @param collectionKey: 콜렉션 키 값
      * @param options: 쿼리 정보 ({path: 'name', operator: '===', value: '상규'})
      */
@@ -81,13 +82,13 @@ export const useFireStore = () => {
     /**
      * @description firestore 필드 데이터 업데이트 하기
      * @param collectionKey: 콜렉션 키 값
-     * @param document: 도큐먼트 키 값
+     * @param documentKey: 도큐먼트 키 값
      * @param field: 업데이트할 필드 및 값 Object
      *
      */
-    const updateStore = useCallback(async <T extends FieldValue>(collectionKey: string, document: string, field: UpdateData<T>) => {
+    const updateStore = useCallback(async <T extends FieldValue>(collectionKey: string, documentKey: string, field: UpdateData<T>) => {
         try {
-            const docRef = doc(db, collectionKey, document);
+            const docRef = doc(db, collectionKey, documentKey);
             await updateDoc(docRef, field);
         } catch (err) {
             throw new Error(`Firestore update Error: ${err}`);
@@ -97,13 +98,13 @@ export const useFireStore = () => {
     /**
      * @description firestore 필드 삭제
      * @param collectionKey: 콜렉션 키 값
-     * @param document: 도큐먼트 키 값
+     * @param documentKey: 도큐먼트 키 값
      * @param field: 삭제할 필드들의 key배열
      *
      */
-    const removeField = useCallback(async(collectionKey: string, document: string, field: string[]) => {
+    const removeField = useCallback(async(collectionKey: string, documentKey: string, field: string[]) => {
         try {
-            const docRef = doc(db, collectionKey, document);
+            const docRef = doc(db, collectionKey, documentKey);
             const removeFieldObject: FirestoreDeleteProps = {};
 
             field.forEach((fieldKey) => {
@@ -119,12 +120,12 @@ export const useFireStore = () => {
     /**
      * @description firestore 도큐먼트 삭제
      * @param collectionKey: 콜렉션 키 값
-     * @param document: 도큐먼트 키 값
+     * @param documentKey: 도큐먼트 키 값
      *
      */
-    const removeDocs = useCallback(async(collectionKey: string, document: string) => {
+    const removeDocs = useCallback(async(collectionKey: string, documentKey: string) => {
         try {
-             await deleteDoc(doc(db, collectionKey, document));
+             await deleteDoc(doc(db, collectionKey, documentKey));
         } catch (err) {
             throw new Error(`Firestore delete Docs Error: ${err}`);
         }
