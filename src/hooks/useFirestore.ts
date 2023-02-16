@@ -1,3 +1,4 @@
+import {firebaseConfig} from "@/constants/config";
 import { UpdateData } from "@firebase/firestore";
 import { initializeApp } from "firebase/app";
 import { addDoc, collection, deleteDoc, deleteField, doc, getDocs, getFirestore, updateDoc, FieldValue } from 'firebase/firestore';
@@ -12,16 +13,6 @@ type FirestoreReadDataType<T> = T & {
 }
 
 export const useFireStore = () => {
-    const firebaseConfig = {
-        apiKey: process.env.API_KEY,
-        authDomain: process.env.AUTH_DOMAIN,
-        projectId: process.env.PROJECT_ID,
-        storageBucket: process.env.STORAGE_BUCKET,
-        messagingSenderId: process.env.MESSAGING_SENDER_ID,
-        appId: process.env.APP_ID,
-        measurementId: process.env.MEASUREMENT_ID,
-    };
-
     const app = initializeApp(firebaseConfig);
 
     const db = getFirestore(app);
