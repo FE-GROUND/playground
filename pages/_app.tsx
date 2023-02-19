@@ -1,7 +1,8 @@
-import { NextPage } from "next";
-import { ReactElement, ReactNode, useState } from "react";
 import { Noto_Sans_KR } from "@next/font/google";
+import { NextPage } from "next";
+import { SessionProvider } from "next-auth/react";
 import type { AppProps } from "next/app";
+import { ReactElement, ReactNode, useState } from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 
 const font = Noto_Sans_KR({ weight: "500", subsets: ["latin"] });
@@ -14,7 +15,10 @@ type NextPageProps = AppProps & {
   Component: NextLayoutPage;
 };
 
-const App = ({ Component, pageProps }: NextPageProps) => {
+const App = ({
+  Component,
+  pageProps: { session, ...pageProps },
+}: NextPageProps) => {
   const [queryClient] = useState(
     () =>
       new QueryClient({
@@ -28,11 +32,13 @@ const App = ({ Component, pageProps }: NextPageProps) => {
   const layout = Component.layout || ((page) => page);
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <main className={font.className}>
-        {layout(<Component {...pageProps} />)}
-      </main>
-    </QueryClientProvider>
+    <SessionProvider session={session}>
+      <QueryClientProvider client={queryClient}>
+        <main className={font.className}>
+          {layout(<Component {...pageProps} />)}
+        </main>
+      </QueryClientProvider>
+    </SessionProvider>
   );
 };
 
