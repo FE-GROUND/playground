@@ -1,8 +1,3 @@
-// interface TestProps {
-//   item: string;
-//   name: string;
-// }
-
 export const HomeScreen = () => {
   // const {writeStore, readStore, queryStore, updateStore, removeField, removeDocs} = useFireStore();
 

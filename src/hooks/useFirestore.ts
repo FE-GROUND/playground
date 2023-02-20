@@ -1,14 +1,15 @@
 import { firebaseConfig } from "@/constants/config";
+import { fireStoreData, fireStoreDeleteObject } from "@/utils/fireStore";
 import { FieldPath, query, setDoc, UpdateData, where, WhereFilterOp } from "@firebase/firestore";
 import { initializeApp } from "firebase/app";
-import { collection, deleteDoc, deleteField, doc, getDocs, getFirestore, updateDoc, FieldValue } from 'firebase/firestore';
+import { collection, deleteDoc, doc, getDocs, getFirestore, updateDoc, FieldValue } from 'firebase/firestore';
 import { useCallback } from "react";
 
-interface FirestoreDeleteProps {
+export interface FirestoreDeleteProps {
     [key: string]: FieldValue;
 }
 
-type FirestoreReadDataType<T> = T & {
+export type FirestoreReadDataType<T> = T & {
     documentId: string;
 }
 
@@ -44,14 +45,9 @@ export const useFireStore = () => {
     const readStore = useCallback(async <T>(collectionKey: string): Promise<FirestoreReadDataType<T>[]> => {
         try {
             const readStore = await getDocs(collection(db, collectionKey));
-            const readDataArr: FirestoreReadDataType<T>[] = [];
+            const resultData = fireStoreData<T>(readStore);
 
-            readStore.forEach((docs) => {
-                const readData = docs.data() as T;
-                readDataArr.push({...readData, documentId: String(docs.id)});
-            })
-
-            return readDataArr;
+            return resultData;
         } catch (err) {
             throw new Error(`Firestore read Error: ${err}`);
         }
@@ -64,16 +60,11 @@ export const useFireStore = () => {
      */
     const queryStore = useCallback(async <T>(collectionKey: string, options: QueryOption): Promise<FirestoreReadDataType<T>[]> => {
         try {
-            const queryStoreData = await query(collection(db, collectionKey), where(options.path, options.operator, options.value));
+            const queryStoreData = query(collection(db, collectionKey), where(options.path, options.operator, options.value));
             const querySnapShot = await getDocs(queryStoreData);
-            const readDataArr: FirestoreReadDataType<T>[] = [];
+            const resultData = fireStoreData<T>(querySnapShot);
 
-            querySnapShot.forEach((docs) => {
-                const readData = docs.data() as T;
-                readDataArr.push({...readData, documentId: String(docs.id)});
-            })
-
-            return readDataArr;
+            return resultData;
         } catch (err) {
             throw new Error(`Firestore read Error: ${err}`);
         }
@@ -105,11 +96,7 @@ export const useFireStore = () => {
     const removeField = useCallback(async(collectionKey: string, documentKey: string, field: string[]) => {
         try {
             const docRef = doc(db, collectionKey, documentKey);
-            const removeFieldObject: FirestoreDeleteProps = {};
-
-            field.forEach((fieldKey) => {
-                removeFieldObject[`${fieldKey}`] = deleteField();
-            })
+            const removeFieldObject: FirestoreDeleteProps = fireStoreDeleteObject(field);
 
            await updateDoc(docRef, removeFieldObject);
         } catch (err) {
