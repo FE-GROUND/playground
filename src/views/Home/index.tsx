@@ -1,3 +1,5 @@
+import {LoginScreen} from './Login';
+
 export const HomeScreen = () => {
-  return null;
+	return <LoginScreen />;
 };
