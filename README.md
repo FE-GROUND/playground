@@ -11,4 +11,15 @@
 - fire store
   > 상규
 
-# 오늘 내용 위키 ADR에 옮겨 적기
+2. Configuration
+
+- 깃헙 Action
+
+  > 원진
+
+- rsync + 젠킨스
+
+  > 진리
+
+- slack + lambda
+  > 상규
